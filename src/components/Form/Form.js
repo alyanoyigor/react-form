@@ -113,13 +113,13 @@ export class Form extends React.Component {
     event.preventDefault();
     await this.validateAllInputs();
     if (!this.state.isError) {
-      console.log('send form data');
-      this.resetForm();
+      const values = this.resetForm();
+      console.log(values);
     }
   }
 
   resetForm() {
-    Object.keys(this.state.fields).forEach((field) => {
+    return Object.keys(this.state.fields).map((field) => {
       this.setState((prevState) => ({
         ...prevState,
         fields: {
@@ -127,6 +127,7 @@ export class Form extends React.Component {
           [field]: { ...prevState.fields[field], value: '' },
         },
       }));
+      return { [field]: this.state.fields[field].value };
     });
   }
 
