@@ -1,145 +1,87 @@
 import React from 'react';
 import { Button } from '../Button/Button';
 import { Input } from './Input';
+import { initialFormState } from '../../state';
 import scss from './Form.module.scss';
 
 export class Form extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      fields: {
-        name: {
-          title: 'Name',
-          type: 'text',
-          name: 'name',
-          value: '',
-          error: false,
-          placeholder: 'Input your name..',
-          validator: (value = '') => {
-            return value.length >= 2 ? false : 'Name is too short';
-          },
-        },
-        email: {
-          title: 'Email',
-          type: 'email',
-          name: 'email',
-          value: '',
-          error: false,
-          placeholder: 'Input your email..',
-          validator: (value = '') => {
-            return value.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i)
-              ? false
-              : 'Email is invalid';
-          },
-        },
-        password: {
-          title: 'Password',
-          type: 'password',
-          name: 'password',
-          autoComplete: 'false',
-          value: '',
-          error: false,
-          placeholder: 'Input your password..',
-          validator: (value = '') => {
-            return value.match(
-              /(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z!@#$%^&*]{6,}/g
-            )
-              ? false
-              : 'Password is too simple';
-          },
-        },
-        passwordConfirm: {
-          title: 'Password confirm',
-          type: 'password',
-          name: 'passwordConfirm',
-          autoComplete: 'false',
-          value: '',
-          error: false,
-          placeholder: 'Confirm your password..',
-          validator: (value = '', compareValue) => {
-            return value === compareValue ? false : "Passwords don't match";
-          },
-        },
-      },
-      isError: null,
-    };
-  }
+  state = {
+    ...initialFormState,
+  };
 
-  handleChange(value, inputName) {
-    this.setState((prevState) => ({
-      ...prevState,
-      fields: {
-        ...prevState.fields,
-        [inputName]: { ...prevState.fields[inputName], value },
-      },
-    }));
-  }
+  handleDisable = () => {
+    const { fields } = this.state;
+    const fieldValues = Object.values(fields);
+    const isAllDirty = fieldValues.every((field) => field.isDirty);
+    const isAllError = !fieldValues.every((field) => field.error === false);
 
-  validateInput(value, inputName) {
-    const error = this.state.fields[inputName].validator(
-      value,
-      this.state.fields.password.value
-    );
-    this.setState(
-      (prevState) => ({
-        ...prevState,
-        fields: {
-          ...prevState.fields,
-          [inputName]: {
-            ...prevState.fields[inputName],
-            error,
-          },
-        },
-      }),
-      this.disableSubmitButton.bind(this)
-    );
-  }
-
-  async validateAllInputs() {
-    Object.keys(this.state.fields).forEach((field) => {
-      const { value, name } = this.state.fields[field];
-      this.validateInput(value, name);
+    this.setState({
+      ...this.state,
+      isError: isAllError,
+      isDirty: isAllDirty,
     });
-  }
+  };
 
-  disableSubmitButton() {
-    const isDisabled = Object.keys(this.state.fields).every(
-      (field) => this.state.fields[field].error === false
-    );
-    this.setState((prevState) => ({ ...prevState, isError: !isDisabled }));
-  }
+  onChange = (value, inputName) => {
+    const { fields } = this.state;
+    const { password, passwordConfirm } = fields;
+    let passwordConfirmError = false;
+    let error;
 
-  async handleSubmitForm(event) {
-    event.preventDefault();
-    await this.validateAllInputs();
-    if (!this.state.isError) {
-      const values = this.resetForm();
-      console.log(values);
+    if (inputName === 'passwordConfirm') {
+      error = fields[inputName].validator(value, password.value);
+    } else {
+      error = fields[inputName].validator(value);
     }
-  }
 
-  resetForm() {
-    return Object.keys(this.state.fields).map((field) => {
-      this.setState((prevState) => ({
-        ...prevState,
+    if (inputName === 'password') {
+      const { validator, value: passwordConfirmValue } = passwordConfirm;
+      passwordConfirmError = validator(value, passwordConfirmValue);
+    }
+
+    this.setState(
+      {
+        ...this.state,
         fields: {
-          ...prevState.fields,
-          [field]: { ...prevState.fields[field], value: '' },
+          ...fields,
+          passwordConfirm: {
+            ...fields.passwordConfirm,
+            error: passwordConfirmError,
+          },
+          [inputName]: { ...fields[inputName], value, error, isDirty: true },
         },
-      }));
-      return { [field]: this.state.fields[field].value };
+      },
+      this.handleDisable
+    );
+  };
+
+  handleSubmit = (event) => {
+    event.preventDefault();
+
+    const { fields } = this.state;
+    const values = Object.entries(fields).map(([fieldKey, fieldValue]) => {
+      return { [fieldKey]: fieldValue.value };
     });
-  }
+    console.log(values);
+
+    this.handleReset();
+  };
+
+  handleReset = () => {
+    this.setState({ ...initialFormState });
+  };
 
   render() {
+    const { fields, isError, isDirty } = this.state;
+
     return (
-      <form onSubmit={this.handleSubmitForm.bind(this)}>
-        {Object.keys(this.state.fields).map((field) => {
+      <form onSubmit={this.handleSubmit} onReset={this.handleReset}>
+        {Object.entries(fields).map(([fieldKey, fieldValue]) => {
           const { title, error, autoComplete, type, placeholder, name, value } =
-            this.state.fields[field];
+            fieldValue;
           return (
             <Input
-              key={name}
+              key={fieldKey}
               title={title}
               error={error}
               type={type}
@@ -147,14 +89,13 @@ export class Form extends React.Component {
               name={name}
               value={value}
               autoComplete={autoComplete}
-              handleChange={this.handleChange.bind(this)}
-              validateInput={this.validateInput.bind(this)}
+              handleChange={this.onChange}
             />
           );
         })}
         <div className={scss['form-buttons']}>
-          <Button onClick={this.resetForm.bind(this)}>Reset</Button>
-          <Button type="submit" disabled={this.state.isError}>
+          <Button type="reset">Reset</Button>
+          <Button type="submit" disabled={isError || !isDirty}>
             Submit
           </Button>
         </div>

@@ -1,0 +1,55 @@
+import {
+  validateConfirmPassword,
+  validateEmail,
+  validateName,
+  validatePassword,
+} from '../utils';
+
+export const initialFormState = {
+  isError: false,
+  isDirty: false,
+  fields: {
+    name: {
+      title: 'Name',
+      type: 'text',
+      name: 'name',
+      value: '',
+      error: false,
+      isDirty: false,
+      placeholder: 'Input your name..',
+      validator: validateName,
+    },
+    email: {
+      title: 'Email',
+      type: 'email',
+      name: 'email',
+      value: '',
+      isDirty: false,
+      error: false,
+      placeholder: 'Input your email..',
+      validator: validateEmail,
+    },
+    password: {
+      title: 'Password',
+      type: 'password',
+      name: 'password',
+      autoComplete: 'false',
+      value: '',
+      isDirty: false,
+      error: false,
+      placeholder: 'Input your password..',
+      validator: validatePassword,
+    },
+    passwordConfirm: {
+      title: 'Password confirm',
+      type: 'password',
+      name: 'passwordConfirm',
+      autoComplete: 'false',
+      value: '',
+      isDirty: false,
+      error: false,
+      placeholder: 'Confirm your password..',
+      validator: validateConfirmPassword,
+    },
+  },
+};

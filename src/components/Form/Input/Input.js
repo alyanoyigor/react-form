@@ -12,7 +12,6 @@ export class Input extends React.Component {
       name,
       value,
       handleChange,
-      validateInput,
       error,
     } = this.props;
 
@@ -27,11 +26,7 @@ export class Input extends React.Component {
           name={name}
           id={name}
           value={value}
-          onChange={(event) => {
-            const value = event.target.value;
-            handleChange(value, name);
-            validateInput(value, name);
-          }}
+          onChange={(event) => handleChange(event.target.value, name)}
           placeholder={placeholder}
           autoComplete={autoComplete}
         />
