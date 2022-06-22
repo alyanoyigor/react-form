@@ -12,31 +12,41 @@ export class Form extends React.Component {
   handleDisable = () => {
     const { fields } = this.state;
     const fieldValues = Object.values(fields);
-    const isAllDirty = fieldValues.every((field) => field.isDirty);
-    const isAllError = !fieldValues.every((field) => field.error === false);
+    const isAllTouched = fieldValues.every(({ touched, required }) =>
+      required ? touched : true
+    );
+    const isAllError = fieldValues.some(({ error }) => error);
 
     this.setState({
       ...this.state,
       isError: isAllError,
-      isDirty: isAllDirty,
+      isTouched: isAllTouched,
     });
   };
 
   onChange = (value, inputName) => {
     const { fields } = this.state;
+    const { validator } = fields[inputName];
     const { password, passwordConfirm } = fields;
     let passwordConfirmError = false;
     let error;
 
     if (inputName === 'passwordConfirm') {
-      error = fields[inputName].validator(value, password.value);
+      error = validator(value, password.value);
     } else {
-      error = fields[inputName].validator(value);
+      error = validator(value);
     }
 
     if (inputName === 'password') {
-      const { validator, value: passwordConfirmValue } = passwordConfirm;
-      passwordConfirmError = validator(value, passwordConfirmValue);
+      const {
+        validator: confirmPasswordValidator,
+        value: passwordConfirmValue,
+      } = passwordConfirm;
+
+      passwordConfirmError = confirmPasswordValidator(
+        value,
+        passwordConfirmValue
+      );
     }
 
     this.setState(
@@ -48,7 +58,7 @@ export class Form extends React.Component {
             ...fields.passwordConfirm,
             error: passwordConfirmError,
           },
-          [inputName]: { ...fields[inputName], value, error, isDirty: true },
+          [inputName]: { ...fields[inputName], value, error, touched: true },
         },
       },
       this.handleDisable
@@ -72,7 +82,7 @@ export class Form extends React.Component {
   };
 
   render() {
-    const { fields, isError, isDirty } = this.state;
+    const { fields, isError, isTouched } = this.state;
 
     return (
       <form onSubmit={this.handleSubmit} onReset={this.handleReset}>
@@ -95,7 +105,7 @@ export class Form extends React.Component {
         })}
         <div className={scss['form-buttons']}>
           <Button type="reset">Reset</Button>
-          <Button type="submit" disabled={isError || !isDirty}>
+          <Button type="submit" disabled={isError || !isTouched}>
             Submit
           </Button>
         </div>
