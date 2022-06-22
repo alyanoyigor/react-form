@@ -15,11 +15,11 @@ export class Form extends React.Component {
     const isAllTouched = fieldValues.every(({ touched, required }) =>
       required ? touched : true
     );
-    const isAllError = fieldValues.some(({ error }) => error);
+    const isError = fieldValues.some(({ error }) => error);
 
     this.setState({
       ...this.state,
-      isError: isAllError,
+      isError,
       isTouched: isAllTouched,
     });
   };
