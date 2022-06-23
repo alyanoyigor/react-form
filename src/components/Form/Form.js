@@ -9,7 +9,7 @@ export class Form extends React.Component {
     ...initialFormState,
   };
 
-  handleDisable = () => {
+  updateFormError = () => {
     const { fields } = this.state;
     const fieldValues = Object.values(fields);
     const isAllTouched = fieldValues.every(({ touched, required }) =>
@@ -24,30 +24,31 @@ export class Form extends React.Component {
     });
   };
 
-  onChange = (value, inputName) => {
+  validatePassword = (value) => {
     const { fields } = this.state;
-    const { validator } = fields[inputName];
-    const { password, passwordConfirm } = fields;
-    let passwordConfirmError = false;
-    let error;
+    const { validator, value: passwordConfirmValue } = fields.passwordConfirm;
 
-    if (inputName === 'passwordConfirm') {
-      error = validator(value, password.value);
-    } else {
-      error = validator(value);
-    }
+    return validator(value, passwordConfirmValue);
+  };
+
+  validateInput = (value, inputName) => {
+    const { fields } = this.state;
+    const error = fields[inputName].validator(value, fields.password.value);
+    let passwordConfirmError = false;
 
     if (inputName === 'password') {
-      const {
-        validator: confirmPasswordValidator,
-        value: passwordConfirmValue,
-      } = passwordConfirm;
-
-      passwordConfirmError = confirmPasswordValidator(
-        value,
-        passwordConfirmValue
-      );
+      passwordConfirmError = this.validatePassword(value);
     }
+
+    return { error, passwordConfirmError };
+  };
+
+  onChange = (value, inputName) => {
+    const { fields } = this.state;
+    const { error, passwordConfirmError } = this.validateInput(
+      value,
+      inputName
+    );
 
     this.setState(
       {
@@ -61,7 +62,7 @@ export class Form extends React.Component {
           [inputName]: { ...fields[inputName], value, error, touched: true },
         },
       },
-      this.handleDisable
+      this.updateFormError
     );
   };
 
