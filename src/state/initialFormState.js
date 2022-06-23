@@ -6,8 +6,6 @@ import {
 } from '../utils';
 
 export const initialFormState = {
-  isError: false,
-  isTouched: false,
   fields: {
     name: {
       title: 'Name',
