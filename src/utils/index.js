@@ -28,8 +28,9 @@ export const validatePassword = (value = '') => {
   return validateRequired(value) || isValid;
 };
 
-export const validateConfirmPassword = (value = '', compareValue) => {
-  const isValid = value === compareValue ? false : "Passwords don't match";
+export const validateConfirmPassword = (value = '', allValues) => {
+  const isValid =
+    value === allValues.password ? false : "Passwords don't match";
 
   return validateRequired(value) || isValid;
 };
