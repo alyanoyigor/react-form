@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Field } from 'react-final-form';
 import { ErrorMessage } from '../../ErrorMessage';
 import scss from './Input.module.scss';
@@ -9,7 +10,7 @@ export class Input extends React.Component {
       this.props;
 
     return (
-      <Field name={name} validate={validator} component="input">
+      <Field name={name} validate={validator}>
         {({ input, meta }) => {
           const { touched, error } = meta;
           return (
@@ -38,3 +39,16 @@ export class Input extends React.Component {
     );
   }
 }
+
+Input.defaultProps = {
+  type: 'text',
+};
+
+Input.propTypes = {
+  name: PropTypes.string.isRequired,
+  title: PropTypes.string,
+  validator: PropTypes.func,
+  type: PropTypes.string,
+  placeholder: PropTypes.string,
+  autoComplete: PropTypes.string,
+};

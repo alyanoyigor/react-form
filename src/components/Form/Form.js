@@ -1,21 +1,17 @@
 import React from 'react';
 import { Form as FinalForm } from 'react-final-form';
+import { initialFormState } from '../../state';
 import { Button } from '../Button/Button';
 import { Input } from './Input';
-import { initialFormState } from '../../state';
 import scss from './Form.module.scss';
 
 export class Form extends React.Component {
-  state = {
-    ...initialFormState,
-  };
-
   handleSubmit = (values) => {
     console.log(values);
   };
 
   render() {
-    const { fields } = this.state;
+    const { fields } = initialFormState;
 
     return (
       <FinalForm onSubmit={this.handleSubmit}>
