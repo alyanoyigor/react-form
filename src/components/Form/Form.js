@@ -20,7 +20,7 @@ export class Form extends React.Component {
     return (
       <FinalForm onSubmit={this.handleSubmit}>
         {({ handleSubmit, pristine, form }) => (
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={handleSubmit} onReset={form.reset}>
             {Object.entries(fields).map(([fieldKey, fieldValue]) => {
               const {
                 title,
@@ -45,9 +45,7 @@ export class Form extends React.Component {
               );
             })}
             <div className={scss['form-buttons']}>
-              <Button type="reset" onClick={form.reset}>
-                Reset
-              </Button>
+              <Button type="reset">Reset</Button>
               <Button type="submit" disabled={pristine}>
                 Submit
               </Button>
