@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import scss from './ErrorMessage.module.scss';
 
 export class ErrorMessage extends React.Component {
@@ -10,4 +11,10 @@ export class ErrorMessage extends React.Component {
 
 ErrorMessage.defaultProps = {
   className: '',
+};
+
+ErrorMessage.propTypes = {
+  className: PropTypes.string,
+  children: PropTypes.oneOfType([PropTypes.element, PropTypes.string])
+    .isRequired,
 };
