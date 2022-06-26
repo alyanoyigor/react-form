@@ -1,11 +1,11 @@
-import { Form } from './components/Form';
+import { FinalForm } from './components/FinalForm';
 import scss from './App.module.scss';
 
 function App() {
   return (
     <div className={scss.container}>
-      <h1 className={scss.title}>Form</h1>
-      <Form />
+      <h1 className={scss.title}>Final Form</h1>
+      <FinalForm />
     </div>
   );
 }
