@@ -1,11 +1,11 @@
 import React from 'react';
-import { Form as FinalForm } from 'react-final-form';
+import { Form } from 'react-final-form';
 import { initialFormState } from './constants';
 import { Button } from '../Button/Button';
 import { Input } from './Input';
-import scss from './Form.module.scss';
+import scss from './FinalForm.module.scss';
 
-export class Form extends React.Component {
+export class FinalForm extends React.Component {
   handleSubmit = (values) => {
     console.log(values);
   };
@@ -14,7 +14,7 @@ export class Form extends React.Component {
     const { fields } = initialFormState;
 
     return (
-      <FinalForm onSubmit={this.handleSubmit}>
+      <Form onSubmit={this.handleSubmit}>
         {({ handleSubmit, pristine, form }) => (
           <form onSubmit={handleSubmit} onReset={form.reset}>
             {Object.entries(fields).map(([fieldKey, fieldValue]) => {
@@ -48,7 +48,7 @@ export class Form extends React.Component {
             </div>
           </form>
         )}
-      </FinalForm>
+      </Form>
     );
   }
 }
