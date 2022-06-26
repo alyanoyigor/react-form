@@ -3,7 +3,7 @@ import {
   validateEmail,
   validateName,
   validatePassword,
-} from '../utils';
+} from './utils';
 
 export const initialFormState = {
   isError: false,

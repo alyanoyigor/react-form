@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button } from '../Button/Button';
 import { Input } from './Input';
-import { initialFormState } from '../../state';
+import { initialFormState } from './constants';
 import scss from './Form.module.scss';
 
 export class Form extends React.Component {
