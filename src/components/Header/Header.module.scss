@@ -1,0 +1,22 @@
+@import '../../scss/variables.scss';
+
+.header {
+  padding: 16px;
+  font-size: 18px;
+}
+
+.nav {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+}
+
+.nav-link {
+  text-decoration: none;
+  color: $black;
+
+  &.active {
+    color: $focus;
+    border-bottom: 2px solid $focus;
+  }
+}

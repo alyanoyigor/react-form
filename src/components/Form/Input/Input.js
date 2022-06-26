@@ -30,7 +30,7 @@ export class Input extends React.Component {
           placeholder={placeholder}
           autoComplete={autoComplete}
         />
-        <ErrorMessage className={scss.error} error={error} />
+        {error && <ErrorMessage className={scss.error}>{error}</ErrorMessage>}
       </div>
     );
   }
