@@ -3,7 +3,8 @@ import {
   validateEmail,
   validateName,
   validatePassword,
-} from '../utils';
+  validateRequired,
+} from './utils';
 
 export const initialFormState = {
   fields: {
@@ -12,14 +13,14 @@ export const initialFormState = {
       type: 'text',
       name: 'name',
       placeholder: 'Input your name..',
-      validator: validateName,
+      validators: [validateRequired, validateName],
     },
     email: {
       title: 'Email',
       type: 'email',
       name: 'email',
       placeholder: 'Input your email..',
-      validator: validateEmail,
+      validators: [validateEmail],
     },
     password: {
       title: 'Password',
@@ -27,7 +28,7 @@ export const initialFormState = {
       name: 'password',
       autoComplete: 'false',
       placeholder: 'Input your password..',
-      validator: validatePassword,
+      validators: [validateRequired, validatePassword],
     },
     passwordConfirm: {
       title: 'Password confirm',
@@ -35,7 +36,7 @@ export const initialFormState = {
       name: 'passwordConfirm',
       autoComplete: 'false',
       placeholder: 'Confirm your password..',
-      validator: validateConfirmPassword,
+      validators: [validateRequired, validateConfirmPassword],
     },
   },
 };

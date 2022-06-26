@@ -1,6 +1,6 @@
 import React from 'react';
 import { Form as FinalForm } from 'react-final-form';
-import { initialFormState } from '../../state';
+import { initialFormState } from './constants';
 import { Button } from '../Button/Button';
 import { Input } from './Input';
 import scss from './Form.module.scss';
@@ -20,7 +20,7 @@ export class Form extends React.Component {
             {Object.entries(fields).map(([fieldKey, fieldValue]) => {
               const {
                 title,
-                validator,
+                validators,
                 autoComplete,
                 type,
                 placeholder,
@@ -30,7 +30,7 @@ export class Form extends React.Component {
               return (
                 <Input
                   key={fieldKey}
-                  validator={validator}
+                  validators={validators}
                   title={title}
                   type={type}
                   placeholder={placeholder}
