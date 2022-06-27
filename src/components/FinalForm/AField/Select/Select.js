@@ -1,6 +1,6 @@
 import React from 'react';
 import { ErrorMessage } from '../../../ErrorMessage';
-import scss from '../AField.module.scss';
+import { selectErrorStyles, StyledSelect } from './styled';
 
 export class Select extends React.Component {
   render() {
@@ -9,10 +9,9 @@ export class Select extends React.Component {
 
     return (
       <>
-        <select
-          className={`${scss.field} ${
-            touched && error ? scss['field-error'] : ''
-          }`}
+        <StyledSelect
+          touched={touched}
+          error={error}
           name={name}
           id={id}
           {...input}
@@ -22,9 +21,9 @@ export class Select extends React.Component {
               {title}
             </option>
           ))}
-        </select>
+        </StyledSelect>
         {touched && error && (
-          <ErrorMessage className={scss.error}>{error}</ErrorMessage>
+          <ErrorMessage styles={selectErrorStyles}>{error}</ErrorMessage>
         )}
       </>
     );

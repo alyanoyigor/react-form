@@ -1,6 +1,6 @@
 import React from 'react';
 import { ErrorMessage } from '../../../ErrorMessage';
-import scss from '../AField.module.scss';
+import { inputErrorStyles, StyledInput } from './styled';
 
 export class Input extends React.Component {
   render() {
@@ -17,11 +17,10 @@ export class Input extends React.Component {
 
     return (
       <>
-        <input
-          className={`${scss.field} ${
-            touched && error ? scss['field-error'] : ''
-          }`}
+        <StyledInput
           name={customName}
+          error={error}
+          touched={touched}
           id={id}
           placeholder={placeholder}
           type={customType}
@@ -29,7 +28,7 @@ export class Input extends React.Component {
           {...input}
         />
         {touched && error && (
-          <ErrorMessage className={scss.error}>{error}</ErrorMessage>
+          <ErrorMessage styles={inputErrorStyles}>{error}</ErrorMessage>
         )}
       </>
     );

@@ -1,6 +1,11 @@
 import React from 'react';
 import { ErrorMessage } from '../../ErrorMessage';
-import scss from './Input.module.scss';
+import {
+  errorStyles,
+  StyledInput,
+  StyledInputContainer,
+  StyledLabel,
+} from './styled';
 
 export class Input extends React.Component {
   render() {
@@ -16,13 +21,11 @@ export class Input extends React.Component {
     } = this.props;
 
     return (
-      <div className={scss['input-container']}>
-        <label className={scss.label} htmlFor={name}>
-          {title}
-        </label>
-        <input
-          className={`${scss.input} ${error ? scss.input_error : ''}`}
+      <StyledInputContainer>
+        <StyledLabel htmlFor={name}>{title}</StyledLabel>
+        <StyledInput
           type={type}
+          error={error}
           name={name}
           id={name}
           value={value}
@@ -30,8 +33,8 @@ export class Input extends React.Component {
           placeholder={placeholder}
           autoComplete={autoComplete}
         />
-        {error && <ErrorMessage className={scss.error}>{error}</ErrorMessage>}
-      </div>
+        {error && <ErrorMessage styles={errorStyles}>{error}</ErrorMessage>}
+      </StyledInputContainer>
     );
   }
 }

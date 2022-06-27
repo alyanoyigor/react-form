@@ -1,19 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import scss from './Button.module.scss';
+import { StyledButton } from './styled';
 
 export class Button extends React.Component {
   render() {
     const { type, onClick, disabled, children } = this.props;
     return (
-      <button
-        type={type}
-        disabled={disabled}
-        className={scss.button}
-        onClick={onClick}
-      >
+      <StyledButton type={type} disabled={disabled} onClick={onClick}>
         {children}
-      </button>
+      </StyledButton>
     );
   }
 }

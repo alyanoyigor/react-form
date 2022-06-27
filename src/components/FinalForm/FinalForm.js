@@ -3,7 +3,7 @@ import { Form } from 'react-final-form';
 import { initialFormState } from './constants';
 import { Button } from '../Button/Button';
 import { AField } from './AField';
-import scss from './FinalForm.module.scss';
+import { StyledFormButtons } from './styled';
 
 export class FinalForm extends React.Component {
   handleSubmit = (values) => {
@@ -44,12 +44,12 @@ export class FinalForm extends React.Component {
                 />
               );
             })}
-            <div className={scss['form-buttons']}>
+            <StyledFormButtons>
               <Button type="reset">Reset</Button>
               <Button type="submit" disabled={pristine}>
                 Submit
               </Button>
-            </div>
+            </StyledFormButtons>
           </form>
         )}
       </Form>

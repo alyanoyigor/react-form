@@ -2,7 +2,7 @@ import React from 'react';
 import { Button } from '../Button/Button';
 import { Input } from './Input';
 import { initialFormState } from './constants';
-import scss from './Form.module.scss';
+import { StyledFormButtons } from './styled';
 
 export class Form extends React.Component {
   state = {
@@ -104,12 +104,12 @@ export class Form extends React.Component {
             />
           );
         })}
-        <div className={scss['form-buttons']}>
+        <StyledFormButtons>
           <Button type="reset">Reset</Button>
           <Button type="submit" disabled={isError || !isTouched}>
             Submit
           </Button>
-        </div>
+        </StyledFormButtons>
       </form>
     );
   }

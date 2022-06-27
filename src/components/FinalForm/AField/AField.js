@@ -4,7 +4,7 @@ import { Field } from 'react-final-form';
 import { composeValidators } from '../utils';
 import { Select } from './Select';
 import { Input } from './Input';
-import scss from './AField.module.scss';
+import { StyledInputContainer, StyledLabel } from './styled';
 
 export class AField extends React.Component {
   render() {
@@ -20,10 +20,8 @@ export class AField extends React.Component {
     } = this.props;
 
     return (
-      <div className={scss['input-container']}>
-        <label className={scss.label} htmlFor={id}>
-          {title}
-        </label>
+      <StyledInputContainer>
+        <StyledLabel htmlFor={id}>{title}</StyledLabel>
         <Field
           customName={name}
           name={name}
@@ -35,7 +33,7 @@ export class AField extends React.Component {
           customType={type}
           component={options ? Select : Input}
         />
-      </div>
+      </StyledInputContainer>
     );
   }
 }

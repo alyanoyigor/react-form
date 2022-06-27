@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import scss from './Title.module.scss';
+import { StyledTitle } from './styled';
 
 export class Title extends React.Component {
   render() {
     const { children } = this.props;
-    return <h1 className={scss.title}>{children}</h1>;
+    return <StyledTitle>{children}</StyledTitle>;
   }
 }
 
