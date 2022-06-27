@@ -2,7 +2,7 @@ import React from 'react';
 import { Form } from 'react-final-form';
 import { initialFormState } from './constants';
 import { Button } from '../Button/Button';
-import { Input } from './Input';
+import { AField } from './AField';
 import scss from './FinalForm.module.scss';
 
 export class FinalForm extends React.Component {
@@ -22,14 +22,18 @@ export class FinalForm extends React.Component {
                 title,
                 validators,
                 autoComplete,
+                options,
+                id,
                 type,
                 placeholder,
                 name,
               } = fieldValue;
 
               return (
-                <Input
+                <AField
                   key={fieldKey}
+                  id={id}
+                  options={options}
                   validators={validators}
                   title={title}
                   type={type}
