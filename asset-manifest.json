@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/alyanoyigor/react-form/static/css/main.3ce23c5e.css",
-    "main.js": "/alyanoyigor/react-form/static/js/main.cdf444aa.js",
-    "index.html": "/alyanoyigor/react-form/index.html",
-    "main.3ce23c5e.css.map": "/alyanoyigor/react-form/static/css/main.3ce23c5e.css.map",
-    "main.cdf444aa.js.map": "/alyanoyigor/react-form/static/js/main.cdf444aa.js.map"
+    "main.css": "./static/css/main.3ce23c5e.css",
+    "main.js": "./static/js/main.d841299e.js",
+    "index.html": "./index.html",
+    "main.3ce23c5e.css.map": "./static/css/main.3ce23c5e.css.map",
+    "main.d841299e.js.map": "./static/js/main.d841299e.js.map"
   },
   "entrypoints": [
     "static/css/main.3ce23c5e.css",
-    "static/js/main.cdf444aa.js"
+    "static/js/main.d841299e.js"
   ]
 }
