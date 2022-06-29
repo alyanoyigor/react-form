@@ -1,6 +1,6 @@
-export const COLORS = {
-  ERROR: '#d81212',
-  FOCUS: '#2442ee',
-  BLACK: '#000000',
-  WHITE: '#ffffff',
+export const theme = {
+  error: '#d81212',
+  focus: '#2442ee',
+  black: '#000000',
+  white: '#ffffff',
 };

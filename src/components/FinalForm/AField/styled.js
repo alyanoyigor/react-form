@@ -1,28 +1,21 @@
-import styled, { css } from 'styled-components';
-import { COLORS } from '../../../constants';
+import styled from 'styled-components';
+import { StyledError } from '../../ErrorMessage/styled';
 
-const { ERROR, WHITE, BLACK, FOCUS } = COLORS;
-
-export const fieldStyles = css`
+export const StyledField = styled.div`
   width: 100%;
   border-radius: 14px;
-  background-color: ${WHITE};
+  background-color: ${(props) => props.theme.white};
   font-size: 16px;
   padding: 16px;
   border: 2px solid
-    ${({ touched, error }) => (touched && error ? ERROR : BLACK)};
+    ${({ touched, error, theme }) =>
+      touched && error ? theme.error : theme.black};
   text-align: center;
 
   &:focus-visible {
     outline: none;
-    border-color: ${FOCUS};
+    border-color: ${(props) => props.theme.focus};
   }
-`;
-
-export const errorStyles = css`
-  position: absolute;
-  bottom: 0;
-  left: 8px;
 `;
 
 export const StyledInputContainer = styled.div`
@@ -38,5 +31,11 @@ export const StyledLabel = styled.label`
   font-size: 14px;
   padding: 2px;
   background-color: gray;
-  color: ${WHITE};
+  color: ${(props) => props.theme.white};
+`;
+
+export const StyledErrorMessage = styled(StyledError)`
+  position: absolute;
+  bottom: 0;
+  left: 8px;
 `;

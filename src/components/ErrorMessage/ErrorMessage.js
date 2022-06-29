@@ -4,8 +4,8 @@ import { StyledError } from './styled';
 
 export class ErrorMessage extends React.Component {
   render() {
-    const { children, styles } = this.props;
-    return <StyledError styles={styles}>{children}</StyledError>;
+    const { children } = this.props;
+    return <StyledError>{children}</StyledError>;
   }
 }
 

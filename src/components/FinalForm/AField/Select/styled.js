@@ -1,8 +1,4 @@
 import styled from 'styled-components';
-import { fieldStyles, errorStyles } from '../styled';
+import { StyledField } from '../styled';
 
-export const selectErrorStyles = errorStyles;
-
-export const StyledSelect = styled.select`
-  ${fieldStyles}
-`;
+export const StyledSelect = styled(StyledField).attrs({ as: 'select' })``;

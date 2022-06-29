@@ -1,12 +1,9 @@
 import styled from 'styled-components';
-import { COLORS } from '../../constants';
-
-const { WHITE, BLACK, FOCUS } = COLORS;
 
 export const StyledButton = styled.button`
   cursor: pointer;
-  background-color: ${WHITE};
-  border: 2px solid ${BLACK};
+  background-color: ${(props) => props.theme.white};
+  border: 2px solid ${(props) => props.theme.black};
   width: 100%;
   max-width: 100px;
   height: 45px;
@@ -19,7 +16,7 @@ export const StyledButton = styled.button`
   }
 
   &:hover:not(:disabled) {
-    border-color: ${FOCUS};
-    color: ${FOCUS};
+    border-color: ${(props) => props.theme.focus};
+    color: ${(props) => props.theme.focus};
   }
 `;

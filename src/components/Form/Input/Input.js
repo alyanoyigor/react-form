@@ -1,7 +1,6 @@
 import React from 'react';
-import { ErrorMessage } from '../../ErrorMessage';
 import {
-  errorStyles,
+  StyledErrorMessage,
   StyledInput,
   StyledInputContainer,
   StyledLabel,
@@ -33,7 +32,7 @@ export class Input extends React.Component {
           placeholder={placeholder}
           autoComplete={autoComplete}
         />
-        {error && <ErrorMessage styles={errorStyles}>{error}</ErrorMessage>}
+        {error && <StyledErrorMessage>{error}</StyledErrorMessage>}
       </StyledInputContainer>
     );
   }

@@ -1,6 +1,6 @@
 import React from 'react';
-import { ErrorMessage } from '../../../ErrorMessage';
-import { selectErrorStyles, StyledSelect } from './styled';
+import { StyledErrorMessage } from '../styled';
+import { StyledSelect } from './styled';
 
 export class Select extends React.Component {
   render() {
@@ -22,9 +22,7 @@ export class Select extends React.Component {
             </option>
           ))}
         </StyledSelect>
-        {touched && error && (
-          <ErrorMessage styles={selectErrorStyles}>{error}</ErrorMessage>
-        )}
+        {touched && error && <StyledErrorMessage>{error}</StyledErrorMessage>}
       </>
     );
   }

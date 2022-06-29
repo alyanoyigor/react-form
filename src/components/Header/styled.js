@@ -1,8 +1,5 @@
 import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
-import { COLORS } from '../../constants';
-
-const { BLACK, FOCUS } = COLORS;
 
 export const StyledHeader = styled.header`
   padding: 16px;
@@ -17,10 +14,10 @@ export const StyledNav = styled.nav`
 
 export const StyledNavLink = styled(NavLink)`
   text-decoration: none;
-  color: ${BLACK};
+  color: ${(props) => props.theme.black};
 
   &.active {
-    color: ${FOCUS};
-    border-bottom: 2px solid ${FOCUS};
+    color: ${(props) => props.theme.focus};
+    border-bottom: 2px solid ${(props) => props.theme.focus};
   }
 `;

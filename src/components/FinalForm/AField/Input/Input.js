@@ -1,6 +1,6 @@
 import React from 'react';
-import { ErrorMessage } from '../../../ErrorMessage';
-import { inputErrorStyles, StyledInput } from './styled';
+import { StyledErrorMessage } from '../styled';
+import { StyledInput } from './styled';
 
 export class Input extends React.Component {
   render() {
@@ -27,9 +27,7 @@ export class Input extends React.Component {
           autoComplete={autoComplete}
           {...input}
         />
-        {touched && error && (
-          <ErrorMessage styles={inputErrorStyles}>{error}</ErrorMessage>
-        )}
+        {touched && error && <StyledErrorMessage>{error}</StyledErrorMessage>}
       </>
     );
   }
